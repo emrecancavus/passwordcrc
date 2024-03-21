@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brute Force Attacks</title>
+    <link rel="stylesheet" href="style2.css"/>
+    <script src="bower_components/zxcvbn/dist/zxcvbn.js"></script>
+
+
+</head>
+<script>
+    function generatePassword() {
+
+    const element = document.getElementById("input_box");
+    const input_value = document.getElementById("password").value;
+    const computedStyle = window.getComputedStyle(element);
+    const borderColor = computedStyle.borderColor;
+    deneme = document.getElementById("deneme").value;
+    if(typeof input_value !== 'undefined'){
+        if (borderColor !== "rgb(0, 128, 0)"){
+            const length = 12;
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            const specialChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+            let password = '';
+
+            // En az bir büyük harf ekle
+            password += uppercaseChars.charAt(Math.floor(Math.random() * uppercaseChars.length));
+
+            // En az bir küçük harf ekle
+            password += lowercaseChars.charAt(Math.floor(Math.random() * lowercaseChars.length));
+
+            // En az bir rakam ekle
+            password += numbers.charAt(Math.floor(Math.random() * numbers.length));
+
+            // En az bir özel karakter ekle
+            password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+
+            // Şifrenin geri kalanını rastgele karakterlerle doldur
+            for (let i = password.length; i < length; i++) {
+                const randomCharset = Math.floor(Math.random() * 4);
+                switch (randomCharset) {
+                    case 0:
+                        password += lowercaseChars.charAt(Math.floor(Math.random() * lowercaseChars.length));
+                        break;
+                    case 1:
+                        password += uppercaseChars.charAt(Math.floor(Math.random() * uppercaseChars.length));
+                        break;
+                    case 2:
+                        password += numbers.charAt(Math.floor(Math.random() * numbers.length));
+                        break;
+                    case 3:
+                        password += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+                        break;
+                }
+            }
+
+            // Karakterleri karıştır
+            password = password.split('').sort(() => Math.random() - 0.5).join('');
+            const element = document.getElementById("input_box");
+            document.getElementById("deneme").style.display = "inline-block"
+            const computedStyle = window.getComputedStyle(element);
+            const borderColor = computedStyle.borderColor;
+            console.log(borderColor);
+            if (borderColor == "rgb(255, 0, 0)"){
+                document.getElementById("deneme").innerHTML = password;
+            }
+    
+        }
+
+    }else{
+        document.getElementById("check").setAttribute("disabled", "true");
+    }
+    
+}
+
+// Şifre oluştur ve konsola yazdır
+</script>
+<body>
+    
+    <header class="bg-dark-blue">
+        <div class="container">
+            <nav id="navbar">
+                <h1 class="heading-small">ŞİFRENİZ GÜVENDE Mİ ?</h1><br>
+            </nav>
+        </div>
+    </header>
+
+    <div style="margin-top:150px;">
+        <div class="input-container">
+            <p class="test">Şifre Testi Yapın</p> 
+            <h2>ÖNEMLİ NOKTA: Şifrenize büyük harf veya rakam eklerken, yalnızca büyük harfi başına ve rakamı da sonuna koymayın.</h2>
+        </div>
+
+        <div class="input-box" id ="input_box" style="text-align:center;">
+            <input type="password" name="password" id="password" placeholder="Şifre Giriniz..." onkeyup="sifrele()">
+            <img src="eye1.png" name="eye" id="eye" onclick="toogle()">
+        </div>
+        <button onclick="generatePassword()" id="check" type="button" class="btn btn-success" style="padding:11px 16px; border:1px solid #198754; border-radius:5px; background-color:#198754; color:white; position:absolute; right:515px; top:327px; z-index:1;" disabled>Şifre Öner</button>
+        <center><div id = "deneme" style = "display:none; width:auto; border:2px solid black; padding:3px; border-radius:5px; border-color:green;"></div></center>
+
+
+        <center>
+            <article class="item">
+                <h4 class="lowertitle">BÜYÜK-KÜÇÜK HARF</h4>
+                <p class="lowerUpper">Güçlü ve güveni bir şifre oluşturmak için<br/> 
+                    şifrenizde en az bir tane büyük, en az bir<br/> 
+                        tane küçük harf oluşturun. Tek bir  tıklamayla <br/> 
+                    yeni, kırılması zor parolalar oluşturun. <br/> 
+                </p>
+            </article>
+            <article class="item">
+                <h4 class="numbertitle">RAKAM</h4>
+                <p class="number"> Şifrenizi daha güvende tutmak için <br/> 
+                    en az bir tane rakam bulundurun. Tek <br/> 
+                    bir tıklamayla yeni, kırılması zor parolalar <br/> 
+                oluşturun.
+                </p>
+            </article>
+        
+            <article class="item">
+                <h4 class="symboltitle">SEMBOL</h4>
+                <p class="symbol"> Güvenli şifreler oluşturmak için parolanızın <br/>
+                    içine mutlaka semboller eklemeyi unutmayın.<br/>
+                Tek bir tıklamayla yeni, kırılması zor parolalar<br/> oluşturun.
+                </p>
+                </p>
+            </article>
+        
+            <article class="item">
+                <h4 class="logTitle">UZUNLUK</h4>
+                <p class="log">Şifre ne kadar uzunsa,genellikle o kadar <br/>
+                    güvenlidir. Şifreniniz mümkünse en az  12 <br/>
+                    karakter uzunluğunda olsun.Tek bir  tıklamayla <br/>
+                yeni, kırılması zor parolalar oluşturun.
+                </p>
+            </article>
+            <p class="pp">Şifrenin Kırılma Süresi:</p>
+        <div id ="complexity-span" class="pmshow"></div>
+        </center>
+    </div>
+        
+    <script >
+var state= false;
+function toogle(){
+    if(state){
+       document.getElementById("password").setAttribute("type","password");
+       document.getElementById("eye").style.color='#cab4126';
+       state=false;
+    }
+    else{
+        document.getElementById("password").setAttribute("type","text");
+       document.getElementById("eye").style.color='#512127ef'
+        state=true;
+    }
+}
+const input = document.querySelector("#password");
+const inputBox = document.querySelector(".input-box");
+const lowerUpperInput = document.querySelector(".lowerUpper");
+const numberInput = document.querySelector(".number");
+const symbolInput = document.querySelector(".symbol");
+const logInput = document.querySelector(".log");
+const lowerTitle = document.querySelector(".lowertitle");
+const numberTitle = document.querySelector(".numbertitle");
+const symbolTitle = document.querySelector(".symboltitle");
+const logTitle = document.querySelector(".logTitle");
+const buttonInput = document.querySelector(".input-2");
+const sonucInput= document.querySelector("#sonuc");
+
+
+function loginPassword(){
+   let deneme;
+   const password = input.value;
+    let strength = 0;
+    const lowerUpper = /[A-Z]/&&/[a-z]/;
+    const number = /[0-9]/;
+    const symbol = /[!"#£$%&'()*+,\-./:;<=>?@^_`{|}~]/;
+   
+   
+    if(lowerUpper.test(password)){ 
+       lowerTitle.style.color='darkgreen';
+       lowerUpperInput.style.color='darkgreen';
+    }else{
+      lowerTitle.style.color='black';
+      lowerUpperInput.style.color='black';
+    }
+   if(number.test(password)){
+      numberTitle.style.color='darkgreen';
+      numberInput.style.color='darkgreen';
+   }else{
+      numberTitle.style.color='black';
+      numberInput.style.color='black';
+   }
+   if(symbol.test(password)){
+    symbolTitle.style.color='darkgreen';
+    symbolInput.style.color='darkgreen';
+   }else{
+      symbolTitle.style.color='black';
+      symbolInput.style.color='black';
+   }
+   if(password.length>=12){
+      logTitle.style.color='darkgreen';
+      logInput.style.color='darkgreen';
+   }else{
+      logTitle.style.color='black';
+      logInput.style.color='black';
+   }
+   if(lowerUpper.test(password)||number.test(password)||symbol.test(password)||lowerUpper.test(password)&&number.test(password)){
+    inputBox.style.borderColor="red";
+   }
+   else{
+    inputBox.style.borderColor="black";
+   }
+   if(lowerUpper.test(password)&&number.test(password)&&symbol.test(password)&&password.length>=12){
+    inputBox.style.borderColor="green";
+   }
+   var passwordLength = input.value; // Hesaplanacak süre
+   showCharCount(passwordLength );
+}
+
+input.addEventListener("input",loginPassword); 
+
+
+function sifrele(){
+const element = document.getElementById("input_box");
+const computedStyle = window.getComputedStyle(element);
+const borderColor = computedStyle.borderColor;
+if (borderColor === "rgb(0, 128, 0)" || borderColor === "rgb(0, 0, 0)"){
+    document.getElementById("check").setAttribute("disabled", "true");
+    document.getElementById("deneme").style.display = "none";
+}else{
+    document.getElementById("check").removeAttribute("disabled");
+    
+}
+
+
+var sifre=document.getElementById("password").value;
+var sifre2=zxcvbn(sifre);
+var s3=JSON.stringify(sifre2);
+s3=s3.split(",");
+
+for(i=0;i<s3.length;i++)
+console.log(s3[i]);
+
+document.getElementById("complexity-span").innerHTML=('100/Saat: '+s3[14].split(":")[2]+'<br>'+
+'10/Saniye : '+s3[15].split(":")[1]+'<br>'+'10k/Saniyede :'+s3[16].split(":")[1]+'<br>'+'10B/Saniye : '+s3[17].split(":")[1]+'<br>');
+
+}
+</script>
+</body>
+</html>
