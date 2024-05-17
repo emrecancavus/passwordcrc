@@ -161,7 +161,7 @@ function toogle(){
 
 function downloadFile () {
  const link = document.createElement("a");
- const content = document.getElementById("password").value; // burası dosyanın içeriği.
+ const content = document.getElementById("deneme").value; // burası dosyanın içeriği.
  const file = new Blob([content], { type: 'text/plain' });
  link.href = URL.createObjectURL(file);
  link.download = "indir.txt";
