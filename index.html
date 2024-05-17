@@ -100,6 +100,7 @@
             <img src="eye1.png" name="eye" id="eye" onclick="toogle()">
         </div>
         <button onclick="generatePassword()" id="check" type="button" class="btn btn-success" style="padding:11px 16px; border:1px solid #198754; border-radius:5px; background-color:#198754; color:white; position:absolute; right:515px; top:327px; z-index:1;" disabled>Şifre Öner</button>
+        <button onclick="downloadFile()" id="indir" type="button" class="btn btn-success" style="padding:11px 16px; border:1px solid #198754; border-radius:5px; background-color:#198754; color:white; position:absolute; right:400px; top:327px; z-index:1;">İndir</button>
         <center><div id = "deneme" style = "display:none; width:auto; border:2px solid black; padding:3px; border-radius:5px; border-color:green;"></div></center>
 
 
@@ -157,6 +158,17 @@ function toogle(){
         state=true;
     }
 }
+
+function downloadFile () {
+ const link = document.createElement("a");
+ const content = document.getElementById("password").value; // burası dosyanın içeriği.
+ const file = new Blob([content], { type: 'text/plain' });
+ link.href = URL.createObjectURL(file);
+ link.download = "indir.txt";
+ link.click();
+ URL.revokeObjectURL(link.href);
+};
+
 const input = document.querySelector("#password");
 const inputBox = document.querySelector(".input-box");
 const lowerUpperInput = document.querySelector(".lowerUpper");
